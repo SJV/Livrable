@@ -1,0 +1,599 @@
+\documentclass[french]{article}
+
+\usepackage[utf8]{inputenc}		% package pour l'encodage des caractères
+\usepackage[T1]{fontenc}			% package pour l'encodage des caractères
+\usepackage{babel}					  % package pour la langue
+\usepackage{graphicx} 				% package pour inclure des images
+\usepackage[final]{pdfpages} 	% package pour inclure des PDF
+\usepackage{array} 						% package pour les tableaux
+\usepackage{tabularx} 				% package pour les tableaux
+\usepackage{url} 							% package pour les URL
+\usepackage[hyperindex=true, colorlinks=true, linkcolor=blue, urlcolor=blue, bookmarks=true]{hyperref}		% package pour les liens hypertexte
+
+\title{Projet SJV - Livrable Unique}
+\author{Alexandre Scieux, Benjamin Mollé}
+\date{20 Novembre 2013}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+\section{Introduction}
+
+Ce document est le livrable unique du sprint 2 du projet transversal : SVJ (Salon du jeu vidéo).
+
+Le binôme étudiant le composant est :
+\begin{itemize}
+	\item Alexandre SCIEUX
+	\item Benjamin MOLLÉ
+\end{itemize}
+
+Le tuteur enseignant est Rémi LEHN et Jean-Pierre GUÉDON est le pseudo-directeur de l'entreprise.
+
+\section{Présentation de l'entreprise}
+
+Notre Projet Transversal étant de type "start-up", nous ne travaillons pas en collaboration avec une entreprise. C'est pourquoi nous allons être l'entreprise, avec la collaboration de nos tuteurs enseignants.
+
+\section{Contexte du projet}
+
+\subsection{Qui ? Où ? Quand ?}
+\begin{itemize}
+	\item Nom du projet : Projet SJV
+	\item Nom de l'évènement : A définir
+	\item Lieu de l'évènement : Région Nantaise
+	\item Date prévue de l'événement : Fin 2014 – Début 2015
+\end{itemize}
+
+Membres fondateurs du projet :
+\begin{itemize}
+	\item Alexandre Scieux – Président Club Rézo Polytech Nantes
+	\item Benjamin Mollé – Responsable Tournois Club Rézo Polytech Nantes
+\end{itemize}
+
+Nous sommes membres du club Rézo, association de Polytech Nantes organisatrice des Nantarena (tournois de jeux vidéo).
+
+\subsection{Pourquoi ?}
+
+Aujourd'hui, la Nantarena est un évènement important de la vie associative de l'Ecole Polytechnique de l'Université de Nantes, réunissant 250 joueurs à chaque édition, avec un rayonnement essentiellement régional.
+
+Cependant, cet évènement est victime de son succès et nous sommes depuis 3 éditions obligés de refuser l'inscription à des joueurs faute de place (plus de 350 inscriptions à chaque édition).
+Ce succès est très certainement lié à l'explosion des initiatives de ce type à l'échelle nationale et à celle de l'e-sport (sport vidéo-ludique) à l'échelle internationale.
+
+Au vu de ce succès, nous souhaiterions développer un évènement parallèle à la Nantarena, qui se présenterait sous la forme d'un salon du jeu vidéo comme il en existe déjà quelques-uns à Paris, comme la Paris Games Week.
+
+\subsection{Sous quelle forme ?}
+
+L'évènement se diviserait en deux grandes parties : une partie « LAN », un grand tournoi de jeux vidéo homologué avec des lots à gagner, des matchs diffusés et commentés en direct par le biais d'un système de vidéoprojection et sur internet.
+
+L'autre grande partie prendrait la forme d'un salon où des exposants pourraient présenter leurs produits en rapport avec le monde du jeu vidéo. Par exemple, des fabricants de matériel qui viennent exposer/vendre leurs produits, ou encore des éditeurs qui viennent présenter leurs prochains jeux avec éventuellement des avant-premières. De plus, des conférenciers en relation avec le monde du jeu vidéo viendront animer le salon.
+
+\subsection{Comment ?}
+
+Nous possédons déjà une première expérience de l'organisation d'évènements grâce aux Nantarena, qui nous ont aussi permis de développer des compétences en réseau, communication, marketing et bien d'autres domaines encore.
+Notre expérience nous permet aussi de  déjà connaître quelques acteurs du monde du jeu vidéo comme les entreprises Razer ou Roccat.
+En ce qui concerne le financement, nous étudions actuellement les solutions du sponsorat, avec des entreprises comme celles que nous venons de citer, ainsi que du crowdfunding, un système de financement par le don par des personnes souhaitant voire le projet naître, car nous ne désirons pas emprunter ou investir des fonds propres.
+
+Nous sommes persuadés qu'un tel évènement aurait du succès dans la région Ouest, car il n'y a pas (encore) d'évènement de ce type sur Nantes et qu'il y a une réelle demande. De plus, Nantes est une ville étudiante et qui compte de nombreux passionnés d'informatique et de jeux vidéo appelés couramment « geeks », d'où un important public potentiel.
+
+\subsection{Partie informatique - QoS et QoE}
+
+Dans le cadre de la partie jeu vidéo de l'évènement, une connexion internet à très haut débit sera nécessaire et très sollicitée en raison du caractère connecté de la plupart des jeux vidéo actuels.
+
+Durant l'évènement, notre expérience de l'organisation des tournois de jeux vidéo nous montre que cette connexion ne sera pas uniquement sollicitée par les clients de jeux en eux-mêmes, mais aussi par d'autres activités secondaires : streaming vidéo, navigation sur internet, par exemple des joueurs entre deux parties, téléchargement de mises à jour, etc...
+Pour garantir la meilleure expérience possible, il est nécessaire que les paquets des jeux soient prioritaires sur tous les autres paquets. Dans le cas contraire, l'expérience de jeu est dégradée (apparition de latence, voire de déconnexions).
+
+Le but de notre projet de PTrans est l'étude de la structure et de l'infrastructure réseau la plus propice à l'extension d'un tournoi de jeu en réseau type Nantarena à un grand nombre de joueurs simultanés.
+Pour cela, nous avons besoin de tracer et enregistrer ce qui se passe sur un réseau de taille plus modeste (comme celui de la Nantarena) pour enrichir notre travail sur la gestion temps réel du réseau.
+
+\section{Modèle de domaine}
+
+Le modèle de domaine permet de représenter les concepts clés d'un problème, en identifiant rapidement les relations entre les différentsa éléments le composant.
+
+\subsection{Définitions}
+\paragraph{QoS - Quality of Service}
+
+La qualité de service (QDS) ou Quality of service (QoS) est la capacité à véhiculer dans de bonnes conditions un type de trafic donné, en termes de disponibilité, débit, délais de transmission, gigue, taux de perte de paquets…
+La qualité de service est un concept de gestion qui a pour but d’optimiser les ressources d'un réseau (en management du système d'information) ou d'un processus (en logistique) et de garantir de bonnes performances aux applications critiques pour l'organisation. La qualité de service permet d’offrir aux utilisateurs des débits et des temps de réponse différenciés par applications (ou activités) suivant les protocoles mis en œuvre au niveau de la structure.
+Elle permet ainsi aux fournisseurs de services (départements réseaux des entreprises, opérateurs…) de s’engager formellement auprès de leurs clients sur les caractéristiques de transport des données applicatives sur leurs infrastructures IP.
+
+\paragraph{QoE - Quality of Experience}
+
+La Qualité d'Expérience (QoE, Quality of Experience ou encore Qualité d'Expérience Utilisateur), est une mesure subjective de l'adéquation d'un service par rapport à ce qu'en attend un client. Elle mesure le "rendu" de l'utilisation d'un service (navigation internet, appel téléphonique, émission TV...). Les systèmes de mesure de la Qualité d'Expérience essayent de mesurer les facteurs influant sur la qualité perçue par l'utilisateur (par exemple: le temps de zapping TV, les dégradations sur l'image).
+La QoE (Qualité d'Expérience) est en partie liée avec la Qualité de service (ou QoS), qui mesure des paramètres techniques et objectifs.
+
+\paragraph{Paquet}
+
+En réseau, le paquet est l'entité de transmission de la couche réseau (couche 3 du \hyperlink{modele_osi}{Modèle OSI}).
+La plupart du temps, on ne peut pas tout transmettre sur le réseau d'une machine à une autre en une seule fois, on le découpe donc en une multitude de paquets qui seront transmis séparément et constituent chacun une partie de l'information à transmettre qui est ensuite reconstituée à l'arrivée.
+Un paquet inclut un "en-tête", comprenant les informations utiles pour acheminer et reconstituer le message ainsi que différents "flags" 
+
+\paragraph{Réseau}
+
+Au sens premier du terme, un réseau désigne un ensemble d'éléments qui interagissent entre eux par le biais de flux.
+Il existe différents types de réseau dans tous les domaines, comme le réseau sanguin ou les réseaux de neurones du cerveau en biologie, ou bien le réseau électrique d'un pays ou encore les réseaux sociaux qui représentent les relations entre un ensemble d'individus humains.
+
+En ce qui nous concerne, un réseau informatique est un ensemble de systèmes reliés entre eux pour échanger des informations.
+
+\paragraph{Internet}
+
+Internet est un réseau informatique d'envergure mondiale. Ce réseau est lui-même composé de nombreux réseaux qui sont aussi bien publics que privés. Internet est un réseau de réseau décentralisé, c'est-à-dire qu'il n'y a pas un unique centre névralgique par lequel toutes les données transitent.
+Internet est aujourd'hui le moyen le plus simple d'échanger des informations et permet de faire fonctionner des services aussi variés que les sites internet, le courrier électronique ou encore la messagerie instantanée et la vidéoconférence.
+
+\paragraph{Intranet}
+
+Un intranet est un réseau informatique utilisé à l'intérieur d'une entreprise ou de toute structure qui utilise les mêmes protocoles qu'Internet (TCP, IP, HTTP, SMTP, IMAP, ...).
+
+\paragraph{IP}
+
+IP, acronyme d'Internet Protocol est une famille de protocoles de communication qui, comme son nom l'indique, a été développée pour être utilisé sur le réseau Internet.
+Les protocoles IP se situent au niveau 3 (réseau) dans le \hyperlink{modele_osi}{Modèle OSI}.
+Actuellement, deux versions d'IP cohabitent : IPv4 et IPv6. La dernière version, IPv6, vient résoudre le problème de pénurie d'adresses IPv4 en raison des besoins croissants dans ce domaine.
+\hyperlink{ipv4_vs_ipv6}{Comparaison des en-têtes IPv4 et IPv6}
+
+\paragraph{TCP}
+
+TCP, pour Transmission Control Protocol est un protocole de transport d'information en mode connecté.
+Le protocole TCP se situe au niveau 4 (transport) dans le \hyperlink{modele_osi}{Modèle OSI}.
+
+\paragraph{UDP}
+
+UDP, pour User Datagram Protocol est un protocole de transport d'information sans connexion ou négociation (contrairement à TCP).
+Il permet une transmission des données plus simple et donc plus rapide entre deux systèmes mais en contrepartie moins sûre.
+
+%\subsection{Analyse des définitions}
+
+\subsection{Division du domaine}
+
+Dans le diagramme de classe suivant, on peut voir les différents interactions entre tous les acteurs du projets et par quel biais.
+
+\paragraph{Diagramme de classe}
+
+\includepdf{pdf/modele_de_domaine.pdf}
+
+\newpage
+\section{Objectifs globaux du projet - Cahier des charges}
+
+Le cahier des charges constitue le document qui doit être respecté lors de la réalisation d'un projet. Il énumère les contraintes techniques, économiques (comme le budget de fonctionnement), environnementales (écologie, développement durable, recyclage), humaines et matérielles.
+
+\subsection{But du projet}
+
+Notre objectif principal consiste à offrir un évènement ludique à un maximum de personnes. Nous souhaitons donc proposer un évènement proposant de nombreuses activités pour tous les goûts : conférences, stands de démonstration, tournois de jeux vidéo. L'évènement cible aussi bien les joueurs assidus et aguerris que les familles recherchant une sortie durant un week-end.
+
+Pour cela, d'un point de vue logiciel, le but du projet est de produire une architecture réseau apte à supporter ce genre d'évènement. Grâce au principe de QoS et de QoE, nous devons fournir un réseau supportant parfaitement un tournoi, c'est à dire que chaque joueur doit avoir un ressenti optimal lorsqu'il est en jeu. En contre partie, des actions moins "importantes" comme la navigation web, le streaming, les mises à jour peuvent être ralenties pour garantir une continuité du service.
+
+\subsection{Personnes et organismes impliquées dans le projet}
+
+Actuellement, nous sommes 2 étudiants à Polytech Nantes en filière INFO (Alexandre et Benjamin) à travailler sur le projet.
+Nous sommes appuyés dans notre tâche par nos deux tuteurs enseignants : Rémi Lehn et Jean-Pierre Guédon.
+L'équipe du projet se compose donc de 4 personnes à l'heure actuelle.
+
+A l'avenir, nous souhaiterions ajouter des sponsors et partenaires en rapport avec le monde du jeu vidéo et de l'univers geek (constructeurs de matériel, développeurs de jeux vidéos, ...).
+Nous cherchons aussi à obtenir les coordonnées de personnalités connues du monde de l'internet que nous pourrions contacter dans l'avenir pour savoir si elles sont intéressées par une collaboration dans notre projet.
+
+\subsection{Utilisateurs du produit}
+
+Les principaux utilisateurs du produit, d'un point de vue réseau :
+\begin{itemize}
+	\item les joueurs
+	\item les commentateurs/streameurs de matchs
+	\item les conférenciers
+	\item les stands de démonstration
+\end{itemize}
+
+D'un point vue global, on peut ajouter :
+\begin{itemize}
+	\item les visiteurs
+	\item les spectateurs
+	\item les conférenciers
+\end{itemize}
+
+\subsection{Contraintes sur le projet}
+
+\subsubsection{Contraintes non négociables}
+
+\begin{itemize}
+	\item Un logiciel permettant de réguler facilement le trafic par le biais de mécanismes de QoS sur un réseau local sera fourni.
+	\item Un évènement sur la région Nantaise comprenant un tournoi de Jeux Vidéos et mettant en oeuvre le logiciel précédent pour la gestion de son réseau.
+	\item L'évènement devra comporter des conférences pour être soutenu par Polytech Nantes.
+\end{itemize}
+
+\subsubsection{Contraintes négociables}
+
+\begin{itemize}
+	\item L'évènement pourra comporter des invités en rapport avec la culture du jeu vidéo et du monde de l'internet que les visiteurs pourront rencontrer.
+	\item 
+\end{itemize}
+
+\subsection{Lieux de fonctionnement prévus}
+
+Le lieu où se déroulera l'évènement n'a pas encore été défini. Différentes possibiltiés ont déjà été envisagées, incluant Polytech Nantes et différentes salles Nantaises capables d'accueillir ce type d'évènement. Nous comparons chaque solution et pesons le pour et le contre de chacune d'elles, mais le développement de la partie HES de notre projet est fortement ralenti par la date butoir de la Nantarena 13.3 les 16 et 17 Novembre où nous avons décidé avec nos tuteurs enseignants de réaliser un monitoring de la charge du réseau pour évaluer ce qu'il se passerait sur un évènement d'envergure supérieur tel que celui que nous désirons organiser.
+
+\subsection{Temps affecté au projet}
+
+Nous travaillons au moins 6 heures par semaine sur le projet, avec des sprints d'un mois.
+Le projet transversal s'étend sur plus d'un an, le rendu final ayant lieu en même temps que les autres projets transversaux, mais l'évènement est prévu pour se dérouler bien plus tard (fin 2014 - début 2015) en raison de la logistique et de l'organisation nécessaires.
+
+\subsection{Budget alloué au projet}
+
+Nous ne désirons pas emprunter ou investir des fonds propres pour réaliser la première édition de l'évènement.
+Nous étudions actuellement les solutions du sponsorat, avec des entreprises mais aussi des solutions de partenariats et/ou de financement par des organismes publics dans le but de financer ce projet.
+Le crowdfunding (financement par la foule) est un système de financement basé sur le don par des personnes souhaitant voire le projet naître et/ou y participer et qui permet a une masse de petits investisseurs de réaliser un projet plus grand que ce qu'il auraient pu réaliser seuls. Ces investisseurs reçoivent ensuite une contrepartie liée au montant qu'ils ont versé et définie à l'avance si le projet financé est un succès.
+
+\section{Planning global du projet}
+
+\subsection{Diagramme de Gantt}
+\begin{figure}[h]
+	\includegraphics[width=\linewidth]{images/diagramme_de_gantt.png}
+	\caption{Diagramme de gantt}
+	\label{fig:Diagramme_de_gantt}
+\end{figure}
+
+\newpage
+
+\subsection{Planning des sprints}
+
+\paragraph{Sprint 1}
+Au cours du premier sprint, nous avons organisé une réunion avec nos tuteurs enseignants pour poser les bases du projet et des deux premiers sprints. Nous avons aussi commencé la rédaction de notre bibliographie ainsi que de notre webographhie.
+Durant cette réunion, il a été décidé de mettre en place un système de monitoring du réseau de la Nantarena pour nous donner une idée de la charge que celui-ci supporte et ensuite pouvoir extrapoler à un réseau de plus grande envergure, tel que celui que nous allons avoir à bâtir.
+Celui-ci sera installé sur les 12 commutateurs Cisco utilisés pour le réseau ainsi que sur le switch Gigabit principal, le "coeur de réseau".
+Une machine virtuelle installée sur un serveur et équipée d'un logiciel adapté s'occupera de recuillir et traiter les données envoyées par les commutateurs.
+
+\paragraph{Sprint 2}
+Durant ce second sprint, nous avons mis en application notre système de monitoring réseau au sein de la Nantarena. Nous devons maintenant analyser les résultats que nous avons obtenu pour obtenir une idée du dimenssionnement du réseau que nous devrons conçevoir. Nous avons aussi effectué des mesures électriques sur les différentes lignes que nous utilisons (grâce à du matériel prêté par le département ETN) pour alimenter les ordinateurs des joueurs ainsi que notre propre matériel, dans le but de savoir si nous sommes à la limite de ce que peut supporter notre installation électrique ou si nous pourrions potentiellement ajouter des ordinateurs, et donc, des joueurs.
+Nous continuons a enricihir notre bibliographie grâce aux ouvrages que nous avons empruntés à la Bibliothèque Universitaire.
+
+\paragraph{Sprint 3}
+Pour le sprint 3, nous aimerions commencer la phase de pré-conception de notre logiciel de gestion de réseau (langage utilisé, plate-forme, outils à maitriser) ainsi que de conception (organisation des classes, interface graphique ...)
+Nous souhaiterions aussi engager les démarches HES du projet qui ont pris du retard en raison des efforts fournis pour finir le système de monitoring à temps pour la Nantarena de Novembre. Ces démarches seront poursuivies dans tous les sprints suivants, car elles nécessitent un effort continu et des relances constantes.
+
+\paragraph{Sprint 4}
+Durant le sprint 4, nous désirons commencer la réalisation du logiciel, c'est-à-dire la phase où nous codons réellement et que celui-ci commence à prendre forme.
+
+\paragraph{Sprint 5}
+Le sprint 5 entre dans la continuité du sprint 4 avec la suite de la réalisation du logiciel de gestion de réseau. 
+Ce sprint représente la phase la plus intense au niveau du codage du logiciel.
+Une première phase de tests des fonctionnalités principales pourra alors être envisagée.
+
+\paragraph{Sprint 6}
+Le sprint 6 entre dans la continuité du sprint 5 avec la suite de la réalisation du logiciel de gestion de réseau.
+Durant ce sprint, la réalisation du logiciel est en phase finale, les fonctionnalitées principales sont déjà testées et implémentées et les dernières fonctionnalités sont en train d'être ajoutées.
+
+\paragraph{Sprint 7}
+Durant ce sprint, nous souhaitons finir l'intégration et réaliser les tests finaux sur notre logiciel de gestion de réseau.
+A ce stade, il ne reste que des détails/bugs mineurs à corriger.
+
+\paragraph{Sprint 8}
+Durant ce dernier sprint, nous souhaiterions rédiger tous les documents nécessaires et préparer au mieux notre soutenance de PTrans.
+Ce sprint conclut l'UE "PTrans" du point de vue scolaire, mais notre projet continue jusqu'au jour de l'évènement et au-delà.
+
+\section{Analyse des risques}
+
+Vous trouverez si dessous un tableau montrant les principaux risques qui pourraient aller à l'encontre du projet. Ce tableau est non exhaustif, nous avons trouvé judicieux de ne faire apparaître que les risques majeurs et surtout les plus courants, c'est à dire ceux qui ont la probabilité la plus forte d'arriver.
+
+Ce tableau ce compose de quatre grandes parties :
+
+\begin{itemize}
+	\item \textbf{Les aléas :} Cette partie montre la nature du risque
+	\item \textbf{Le \% risque :} Elle montre la probabilité associée à l'aléa d'arriver
+	\item \textbf{La gravité :} Elle se décompose en trois sous-parties :
+	\begin{itemize}
+		\item \textbf{La qualité :} Le risque influe sur la qualité du projet
+		\item \textbf{Le coût :} Le risque influe sur le coût du projet (augmente les dépenses)
+		\item \textbf{Le delai :} Le risque influe sur le délai du projet (retard, report du projet, etc...)
+	\end{itemize}
+	\item \textbf{Les actions à prévoir :} Elle se décompose en deux sous parties :
+	\begin{itemize}
+		\item \textbf{Les actions préventives :} Ce sont les actions à prévoir afin de minimiser la probabilité que le risque se confirme
+		\item \textbf{Les actions curatives :} Ce sont les actions nécessaires pour corriger l'aléa
+	\end{itemize}
+\end{itemize}
+
+Afin de montrer l'impact du risque sur le projet, une série de symboles a été utilisée, permettant de facilité sa compréhension :
+
+\begin{itemize}
+	\item +++ : Impact fort
+	\item ++ : Impact moyen
+	\item + : Impact faible
+	\item \O (case vide) : Aucun impact
+	\item \textasciitilde : Impact variable (peut être positif ou négatif)
+\end{itemize}
+
+Pour certains aléas, il est impossible de prévoir à l'avance les conséquences de ceux-ci, et donc impossible de prévoir une correction. Aucune action préventive et/ou curative n'est donc renseignée pour ceux-ci.
+
+\newpage
+\begin{tabularx}{\linewidth}{|X||p{0,7cm}||p{1cm}|p{0,7cm}|p{0,7cm}||X|X|}
+	\hline
+		Aléas & \% risque & \multicolumn{3}{l||}{Gravité} & \multicolumn{2}{l|}{Actions à prévoir} \\
+	\hline
+		 & & Qualité & Coût & Délai & Prévenir & Curatif \\
+	\hline
+	\hline
+		\multicolumn{7}{|l|}{Administratif}\\
+	\hline
+	\hline
+		Aucune salle disponible dans la région & 10\% & +++ & \textasciitilde & +++ & Commencer tôt les recherches & Étendre le champ de recherche \\
+	\hline
+		Des conférenciers ou exposants se décommandent & 20\% & +++ & & & & \\
+	\hline
+    	Problème d'autorisation ou d'homologation & 15\% & & + & +++ &  & Obtenir les autorisations nécessaires \\
+    \hline
+		Les gens s'ennuient & 10\% & +++ & & & Prévoir des activités variées & \\
+	\hline
+    \hline
+		\multicolumn{7}{|l|}{Humain}\\
+    \hline
+	\hline
+    	Dégâts sur le matériel lors de l'événement & 15\% & + & +++ & & Surveiller et avertir les gens & Demander de payer/réparer \\
+	\hline
+		Vol durant l'événement & 5\% & ++ & ++ & & Prévenir les gens de ne pas amener d'objets de valeur & Appeler la gendarmerie \\
+    \hline
+		Une personne est malade/blessée & 5\% & + & & & Prévoir équipe sécurité civile & Appeler les secours si nécessaire\\
+    \hline
+		Catastrophe naturelle ou attentat & 0,1\% & + & & & Prévoir plan d'évacuation & Evacuer les visiteurs\\
+	\hline
+\end{tabularx}
+\newpage
+\begin{tabularx}{\linewidth}{|X||p{0,7cm}||p{1cm}|p{0,7cm}|p{0,7cm}||X|X|}
+	\hline
+		Aléas & \% risque & \multicolumn{3}{l||}{Gravité} & \multicolumn{2}{l|}{Actions à prévoir} \\
+	\hline
+		 & & Qualité & Coût & Délai & Prévenir & Curatif \\
+	\hline
+	\hline
+		\multicolumn{7}{|l|}{Technique}\\
+	\hline
+	\hline
+		Panne d'électricité & 10\% & +++ & & & Prévoir un groupe électrogène & \\
+	\hline
+		Aucune connexion possible, serveurs ne démarrent pas & 20\% & +++ & & ++ & Tester le réseau & Contacter l'hébergeur si le problème est de leur côté\\
+	\hline
+		Pas de connexion internet & 15\% & ++ & & ++ & Prévoir une connexion professionnel avec un FAI & Trouver le problème avec l'aide du FAI \\
+	\hline
+		Lags pendant le tournoi & 20\% & ++ & & ++ & Tester et optimiser au maximum le réseau & Trouver la source et la résoudre au plus vite \\
+	\hline
+\end{tabularx}
+
+\newpage
+
+\section{Partie HES}
+
+La partie HES est la plus importante en termes de travail à fournir pour notre PTrans. Elle représente toute la partie organisation de l'évènement qui ne concerne pas le réseau nécessaire aux tournois.
+
+Elle inclut :
+\begin{itemize}
+\item La recherche de financement par différent biais (sponsors, crowdfunding, ...).
+\item La communication autour de l'évènement : publicité (réalisation d'affiches, réseaux sociaux)
+\item La recherche et la réservation d'une salle Nantaise.
+\item 
+\end{itemize}
+
+\subsection{Problématique organisationnelle}
+
+Un des principaux défis de l'organisation d'un salon du jeu vidéo est bien son organisation en elle même : location de la salle et de matériel, recherche de sponsors et de partenaires pour le financement, publicité et marketing ...
+
+\subsection{Problématique commerciale}
+
+Une des facettes de la problématique du projet est bien entendu sa réussite commerciale. Pour cela, de nombreux aspects entrent en jeu. Tout d'abord, notre placement sur l'échiquier commercial de l'offre et de la demande. Il y a actuellement une offre très faible voire nulle dans l'Ouest de la France de salon comme celui que nous désirons créer, or la demande est forte, surtout en région Nantaise en raison de la situation de ville étudiante de Nantes ainsi que de sa population importante de joueurs friands de lieux et d'évènements qui leurs sont dédiés (comme la Nantarena ou les bars "geek"). Ainsi, nous nous placons en tant qu'organisation capable de satisfaire cette demande avec une offre à la hauteur des espérances des joueurs et des visiteurs intéressés par le monde du jeu vidéo.
+
+\subsection{Problématique environnementale}
+
+Le projet d'un salon du jeu vidéo va automatiquement générer une problématique environnementale. En effet, rassembler un grand nombre de personnes dans un même lieu génère des déchets qu'il faut éliminer de façon responsable. De plus, la partie tournoi du projet requiert l'utilisation de nombreux ordinateurs puissants pour le jeu ainsi que d'équipements (serveurs, commutateurs ...) qui sont très énergivores. Une des parades à cette consommation est le Green IT (ou informatique verte) dont le but est de réduire les nuisances et les empreintes écologiques, économiques et sociales de l'informatique par le biais d'utilisation d'équipement certifiés économiques en énergie et des pratiques de développement logiciel tournées vers l'environnement (réduction de la consommation CPU ...).
+
+\newpage
+
+\section{Bibliographie}
+
+\subsection*{Michel, Priem. (2004). Trafic et performances des réseaux multi-services ingénierie de la QoS. Hermes Science.}
+
+\paragraph{Définition de la QoS}
+
+"Les technologies dites à QoS (Quality of Service) ont pour objectif de gérer de façon appropriée les différents types de trafic en fonction de leurs contraintes et exigences respectives.
+Ces technologies doivent permettre de construire des réseaux offrant les performances requises tout en optimisant l'utilisation des "tuyaux" et des équipements."
+
+\paragraph{Analogie dela QoS avec une autoroute}
+
+"Si l'on dimenssionne le nombre de voies d'une autoroute pour faire face au trafic du lundi de Pâques (le plus chargé de l'année), on aboutit à un coût prohibitif en raison du surdimenssionnement.
+Si l'on dimenssionne le nombre de voies pour faire face au retour d'un week-end moyen, on devine qu'il y aura congestion lors d'un retour de week-end très chargé.
+Au final, on cherche a dimenssionner l'autoroute pour que les temps de parcours d'un week-end normal soient acceptables et que les bouchons ne dépassent pas une certaine taille lors des retours de week-end très chargés."
+
+\paragraph{Phénomène de gigue ou "jittering"}
+
+La gigue (jitter) définit la variabilité du délai de transit des paquets dans le réseau. On l'exprime souvent sous forme d'écart type, en millisecondes.
+La gigue est différente du délai de transit en raison de son caractère variable. Le phénomène de gigue peut avoir de multiples origines (câble réseau défectueux, mauvaise configuration d'un équipement ...) mais est toujours néfaste en raison des retards induits et doit être évité au maximum.
+
+\begin{figure}[h]
+%	\includegraphics[width=\linewidth]{images/gigue.png}
+	\caption{Gigue ou "Jittering"}
+	\label{fig:gigue_jittering}
+\end{figure} 
+
+\paragraph{Phénomène de burst}
+
+Sur un réseau, des "bursts" ou "bouffées" vont provoquer des évolutions brutales des niveaux de remplissage des tampons dans les équipements et se traduire par des augmentations des délais d'attente.
+Les bursts peuvent être provoqués par une forte demande provenant de nombreux utilisateurs, de manière intentionnelle (comme dans le cas d'une attaque DDoS) ou de manière fortuite, ou bien encore par un problème matériel ou de configuration (un équipement pris dans une boucle ou qui redemande un paquet sans jamais le reçevoir etc).
+
+\paragraph{Délai de transit ou délai d'aller retour (RTT : Real Transit Time)}
+
+Il s'agit du temps nécessaire à une unité de données d'une taille définie (par exemple un paquet) émise par un utilisateur A pour traverser le réseau et atteindre l'utilisateur B et ensuite revenir.
+Ce temps de transit est inhérent aux technologies utilisées pour transporter l'information. Celle-ci transite dans les câbles en cuivre sous forme électrique, et il faut ensuite ajouter à ce temps de trajet le temps de traitement par les équipements. Il y a donc toujours un temps entre l'envoi d'une information et sa réception, ce qui crée des contraintes sur les systèmes qui doivent fonctionner en "temps réel" et où la latence doit être la plus faible possible.
+
+\begin{figure}[h]
+%	\includegraphics[width=\linewidth]{images/delai_de_transit.png}
+	\caption{Délai de transit}
+	\label{fig:delai_de_transit}
+\end{figure} 
+
+\paragraph{Débit instantané et débit soutenu}
+
+Le débit instantanné est le débit qu'un réseau peut fournir à un instant t, tandis que le débit soutenu est le débit que celui-ci peut fournir en moyenne.
+Ainsi, il est possible d'avoir un réseau sur lequel transite un débit ridicule à un instant t en raison d'une surcharge ponctuelle tandis que son débit soutenu au cours du temps sera irréprochable. La situation inverse, avec un débit élevé en pointes, bien que plus rare, est aussi possible.
+
+\begin{figure}[h]
+%	\includegraphics[width=\linewidth]{images/debit_instantane_vs_soutenu.png}
+	\caption{Relation débit et débit soutenu}
+	\label{fig:relation_debit_instantane_vs_soutenu}
+\end{figure} 
+
+\paragraph{Relation complexité-coût}
+
+\begin{figure}[h]
+%	\includegraphics[width=\linewidth]{images/relation_complexite_cout.png}
+	\caption{Relation Complexité-Coût}
+	\label{fig:relation_complexite_cout}
+\end{figure} 
+
+\paragraph{Fonctions utilisées dans la QoS}
+
+\begin{figure}[h]
+	\includegraphics[width=\linewidth]{images/fonctions_qos.png}
+	\caption{Fonctions utilisées dans la QoS}
+	\label{fig:fonctions_qos}
+\end{figure} 
+
+\paragraph{Principe de la file d'attente}
+
+Lorsqu'un système de peut plus gérer les demandes qui lui sont adressées, par exemple lorsqu'elles sont trop nombreuses pour ses capacités de traitement, il est parfois mis en place un système de file d'attente pour palier au problème.
+Les demandes sont traitées dans leur ordre d'arrivée, le plus de demandes possibles sont traitées simultanément tandis que les demandes qui ne peuvent être gérées dans l'instant sont placées dans une file d'attente. On peut faire l'analogie avec une caisse de supermarché : la caissière (le serveur) traite les courses (la requête) du client qui est en face d'elle et les autres attendent que la caissière puissent traiter leur requête, dans leur ordre d'arrivée.
+Dans le cas normal d'utilisation, au fur et à mesure que les requêtes sont traitées, la file d'attente se vide progressivement pour revenir à un fonctionnement normal, où le nombre de requêtes est inférieur aux capacités de traitement simultanées du système (toutes les requêtes sont traitées simultanément).s
+Un autre problème survient lorsque la file d'attente se remplit plus vite qu'elle ne se vide et qu'elle n'est plus extensible, différentes stratégies peuvent alors être mises en place pour parer au problème de dépassement de la taille de la file d'attente.
+
+\begin{figure}[h]
+%	\includegraphics[width=\linewidth]{images/file_attente.png}
+	\caption{Principe de la file d'attente}
+	\label{fig:file_attente}
+\end{figure} 
+
+%[Figure Priem page 46]
+
+\paragraph{Probabilité d'arrivée d'un client : loi de Poisson}
+
+La loi de Poisson permet de modéliser des phénomènes aléatoires mettant en jeu un grand nombre de sources qui sont indépendantes les unes des autres.
+La probabilité qu'un utilisateur se connecte à un serveur peut-être modélisée de façon très satisfaisante par une loi de Poisson. En effet, on ne commence à gérer les connexions que quand celles-ci sont simultanément nombreuses et que ce nombre peut nuire au fonctionnement du serveur (grand nombre de sources). Ces mêmes sources sont de plus indépendantes les unes des autres : la connexion d'un utilisateur n'a pas de lien avec la connexion d'un autre utilisateur ou sa déconnexion (a moins, par exemple, qu'ils se connaissent et aient décidé de se connecter en même temps, mais ce genre de cas est négligeable comparé à toutes les autres connexions sans lien les unes avec les autres).
+
+%[Figure Priem page 48]
+%[Formule du taux de charge du serveur page 48]
+
+\subsection*{Audrey, Marchand. (2006). Ordonnancement temps réel avec contraintes de qualité de service de la théorie à l'intégration.}
+
+\subsection*{Aurélien, Géron. (2006). Wi-Fi déploiement et sécurité le QoS et le WPA. Dunod.}
+
+\subsection*{Claude, Servin. (2006). Réseaux \& télécoms cours avec 129 exercices corrigés . Dunod.}
+
+\subsection*{Fadi, Boulos. (2010). Transmissions d'images et de vidéos sur réseaux à pertes de paquets mécanismes de protection et optimisation de la qualité perçue.}
+
+\subsection*{Jean-François, Susbielle. (2000). Internet, multimédia et temps réel réseaux haut débit, terminaux fixes et mobiles, routage et QoS, voix et audio-vidéo sur IP. Eyrolles.}
+
+\subsection*{José, Dordoigne. (2006). Réseaux informatiques notions fondamentales normes, architecture, modèle OSI, TCP/IP, Ethernet, Wi-Fi. Nantes Ed.}
+
+\newpage
+
+\section{Webographie}
+
+\subsection{Génie Logiciel}
+
+\subsubsection*{QoS}
+\begin{itemize}
+	\item \url{http://fr.wikipedia.org/wiki/Qualit%C3%A9_de_service}
+	\item \url{http://en.wikipedia.org/wiki/Quality_of_service}
+\end{itemize}
+
+\subsubsection*{QoE}
+\begin{itemize}
+\item \url{http://fr.wikipedia.org/wiki/QoE}
+\item \url{http://en.wikipedia.org/wiki/QoE}
+\end{itemize}
+
+\subsubsection*{Protocoles}
+\begin{itemize}
+\item \url{http://fr.wikipedia.org/wiki/Ethernet}
+\item \url{http://fr.wikipedia.org/wiki/Wifi}
+\end{itemize}
+
+\subsubsection*{Organisations}
+\begin{itemize}
+\item \url{http://fr.wikipedia.org/wiki/Institute_of_electrical_and_electronics_engineers}
+\item \url{http://www.internetsociety.org/fr}
+\end{itemize}
+
+\subsubsection*{Traffic Control}
+\begin{itemize}
+\item \url{http://wiki.linuxwall.info/doku.php/fr:ressources:dossiers:networking:traffic_control}
+\end{itemize}
+
+\subsubsection*{NetFlow}
+\begin{itemize}
+\item \url{http://blog.nicolargo.com/2009/11/analyse-des-flux-netflow-sous-gnulinux.html}
+\item \url{http://www.manageengine.com/products/netflow/help/cisco-netflow/cisco-ios-netflow.html}
+\end{itemize}
+
+\subsection{Homme - Entreprise - Société}
+
+\subsubsection*{Salles}
+\begin{itemize}
+\item \url{http://www.exponantes.com/}
+\item \url{http://www.lacite-nantes.fr/fr/index.html#}
+\item \url{http://www.odyssee.orvault.fr/}
+\end{itemize}
+
+\subsubsection*{Partenaires}
+\begin{itemize}
+\item \url{http://www.nantes.fr/home.html}
+\item \url{http://www.nantesmetropole.fr/}
+\item \url{http://www.nantes-just-imagine.com/fr/nantes-st-nazaire}
+\item \url{http://www.atlanpole.fr/}
+\item \url{http://www.orange.fr/}
+\item \url{https://www.facebook.com/GameOverNantes}
+\item \url{http://www.eswc.com/fr}
+\item \url{http://www.gameone.net/}
+\item \url{http://www.bnpparibas.com/}
+\end{itemize}
+
+\subsubsection*{Sponsors}
+\begin{itemize}
+\item \url{http://www.razerzone.com/fr-fr}
+\item \url{http://www.roccat.org/}
+\item \url{http://www.madcatz.com/}
+\item \url{http://fr.msi.com/}
+\item \url{http://www.coolink-europe.com/}
+\item \url{http://www.alienware.fr/}
+\end{itemize}
+
+\subsubsection*{Subventions}
+\begin{itemize}
+\item \url{http://www.univ-nantes.fr/fsdie}
+\item \url{http://www.crous-nantes.fr/pages/missions/culture/le-dispositif-culture-actions.php}
+\end{itemize}
+
+\subsubsection*{Autres salons}
+\begin{itemize}
+\item \url{http://www.parisgamesweek.com/}
+\item \url{http://www.gamers-assembly.net/fr}
+\item \url{http://www.art-to-play.fr/}
+\end{itemize}
+
+\subsubsection*{Autre}
+\begin{itemize}
+\item \url{http://www.afjv.com/news/2730_jeu-video-l-expo-tous-joueurs-toutes-joueuses.htm}
+\item \url{http://www.afjv.com/news/2889_paris-games-week-2013-xbox-one-et-ps4-en-avant-premiere.htm}
+\end{itemize}
+
+\newpage
+\section{Annexes}
+
+\hypertarget{modele_osi}{}
+\begin{figure}[h]
+	\includegraphics[width=\linewidth]{images/modele_osi.png}
+	\caption{Modèle OSI}
+	\label{fig:Modèle OSI}
+\end{figure} 
+
+\hypertarget{ipv4_vs_ipv6}{}
+\begin{figure}[h]
+	\includegraphics[width=\linewidth]{images/ipv4_vs_ipv6.jpg}
+	\caption{En-têtes IPv4 et IPv6}
+	\label{fig:En-têtes IPv4 et IPv6}
+\end{figure} 
+
+\end{document}
