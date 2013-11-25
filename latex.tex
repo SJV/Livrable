@@ -1,14 +1,33 @@
+%%%%%%%%%% LATEX %%%%%%%%%%
+
 \documentclass[french]{article}
 
-\usepackage[utf8]{inputenc}		% package pour l'encodage des caractères
+\usepackage[utf8]{inputenc}			% package pour l'encodage des caractères
 \usepackage[T1]{fontenc}			% package pour l'encodage des caractères
-\usepackage{babel}					  % package pour la langue
+\usepackage{babel}					% package pour la langue
 \usepackage{graphicx} 				% package pour inclure des images
-\usepackage[final]{pdfpages} 	% package pour inclure des PDF
-\usepackage{array} 						% package pour les tableaux
+\usepackage[final]{pdfpages} 		% package pour inclure des PDF
+\usepackage{array} 					% package pour les tableaux
 \usepackage{tabularx} 				% package pour les tableaux
-\usepackage{url} 							% package pour les URL
+\usepackage{adjustbox}
+\usepackage{url} 					% package pour les URL
+\usepackage{comment}
 \usepackage[hyperindex=true, colorlinks=true, linkcolor=blue, urlcolor=blue, bookmarks=true]{hyperref}		% package pour les liens hypertexte
+
+% Macro permettant de changer localement les marges du document %
+% Utile pour insérer des images qui dépassent des marges %
+\newenvironment{changemargin}[2]{\begin{list}{}{%
+\setlength{\topsep}{0pt}%
+\setlength{\leftmargin}{0pt}%
+\setlength{\rightmargin}{0pt}%
+\setlength{\listparindent}{\parindent}%
+\setlength{\itemindent}{\parindent}%
+\setlength{\parsep}{0pt plus 1pt}%
+\addtolength{\leftmargin}{#1}%
+\addtolength{\rightmargin}{#2}%
+}\item }{\end{list}}
+
+%%%%%%%%%% PAGE DE GARDE %%%%%%%%%%
 
 \title{Projet SJV - Livrable Unique}
 \author{Alexandre Scieux, Benjamin Mollé}
@@ -19,8 +38,12 @@
 \maketitle
 \tableofcontents
 
+%%%%%%%%%% INTRODUCTION %%%%%%%%%%
+
 \newpage
 \section{Introduction}
+
+\subsection*{Présentation}
 
 Ce document est le livrable unique du sprint 2 du projet transversal : SVJ (Salon du jeu vidéo).
 
@@ -30,7 +53,20 @@ Le binôme étudiant le composant est :
 	\item Benjamin MOLLÉ
 \end{itemize}
 
-Le tuteur enseignant est Rémi LEHN et Jean-Pierre GUÉDON est le pseudo-directeur de l'entreprise.
+Le tuteur enseignant est Rémi LEHN et Jean-Pierre GUÉDON représente notre tuteur entreprise.
+
+\subsection*{Modifications}
+
+Dans cette édition de notre livrable unique, nous avons ajouté et modifié (par rapport à l'édition précédente) plusieurs points :
+\begin{itemize}
+	\item Rédaction des problématiques organisationnelle, commerciale et environnementale du projet
+    \item Rédaction de paragraphes d'introduction pour chaque section
+    \item Ajout d'éléments oubliés dans l'analyse de domaine
+    \item Ajout de définitions tirées de la littérature
+    \item Ajout du début de la bibliographie scientifique
+    \item Ajout du début de la webographie
+	\item Ajout de nouveaux éléments dans l'analyse des risques    
+\end{itemize}
 
 \section{Présentation de l'entreprise}
 
@@ -166,7 +202,7 @@ Pour cela, d'un point de vue logiciel, le but du projet est de produire une arch
 \subsection{Personnes et organismes impliquées dans le projet}
 
 Actuellement, nous sommes 2 étudiants à Polytech Nantes en filière INFO (Alexandre et Benjamin) à travailler sur le projet.
-Nous sommes appuyés dans notre tâche par nos deux tuteurs enseignants : Rémi Lehn et Jean-Pierre Guédon.
+Nous sommes appuyés dans notre tâche par nos deux tuteurs : Rémi Lehn et Jean-Pierre Guédon.
 L'équipe du projet se compose donc de 4 personnes à l'heure actuelle.
 
 A l'avenir, nous souhaiterions ajouter des sponsors et partenaires en rapport avec le monde du jeu vidéo et de l'univers geek (constructeurs de matériel, développeurs de jeux vidéos, ...).
@@ -195,7 +231,7 @@ D'un point vue global, on peut ajouter :
 
 \begin{itemize}
 	\item Un logiciel permettant de réguler facilement le trafic par le biais de mécanismes de QoS sur un réseau local sera fourni.
-	\item Un évènement sur la région Nantaise comprenant un tournoi de Jeux Vidéos et mettant en oeuvre le logiciel précédent pour la gestion de son réseau.
+	\item Un évènement sur la région Nantaise comprenant un tournoi de Jeux Vidéos et mettant en oeuvre le logiciel précédent pour la gestion de son réseau sera organisé.
 	\item L'évènement devra comporter des conférences pour être soutenu par Polytech Nantes.
 \end{itemize}
 
@@ -203,12 +239,11 @@ D'un point vue global, on peut ajouter :
 
 \begin{itemize}
 	\item L'évènement pourra comporter des invités en rapport avec la culture du jeu vidéo et du monde de l'internet que les visiteurs pourront rencontrer.
-	\item 
 \end{itemize}
 
 \subsection{Lieux de fonctionnement prévus}
 
-Le lieu où se déroulera l'évènement n'a pas encore été défini. Différentes possibiltiés ont déjà été envisagées, incluant Polytech Nantes et différentes salles Nantaises capables d'accueillir ce type d'évènement. Nous comparons chaque solution et pesons le pour et le contre de chacune d'elles, mais le développement de la partie HES de notre projet est fortement ralenti par la date butoir de la Nantarena 13.3 les 16 et 17 Novembre où nous avons décidé avec nos tuteurs enseignants de réaliser un monitoring de la charge du réseau pour évaluer ce qu'il se passerait sur un évènement d'envergure supérieur tel que celui que nous désirons organiser.
+Le lieu où se déroulera l'évènement n'a pas encore été défini. Différentes possibiltiés ont déjà été envisagées, incluant Polytech Nantes et différentes salles Nantaises capables d'accueillir ce type d'évènement. Nous comparons chaque solution et pesons le pour et le contre de chacune d'elles, mais le développement de la partie HES de notre projet a été fortement ralenti par la date butoir de la Nantarena 13.3 les 16 et 17 Novembre où nous avons décidé avec nos tuteurs enseignants de réaliser un monitoring de la charge du réseau pour évaluer ce qu'il se passerait sur un évènement d'envergure supérieur tel que celui que nous désirons organiser.
 
 \subsection{Temps affecté au projet}
 
@@ -221,14 +256,18 @@ Nous ne désirons pas emprunter ou investir des fonds propres pour réaliser la 
 Nous étudions actuellement les solutions du sponsorat, avec des entreprises mais aussi des solutions de partenariats et/ou de financement par des organismes publics dans le but de financer ce projet.
 Le crowdfunding (financement par la foule) est un système de financement basé sur le don par des personnes souhaitant voire le projet naître et/ou y participer et qui permet a une masse de petits investisseurs de réaliser un projet plus grand que ce qu'il auraient pu réaliser seuls. Ces investisseurs reçoivent ensuite une contrepartie liée au montant qu'ils ont versé et définie à l'avance si le projet financé est un succès.
 
+%%%%%%%%%% PLANNING %%%%%%%%%%
+
 \section{Planning global du projet}
 
 \subsection{Diagramme de Gantt}
-\begin{figure}[h]
+\begin{changemargin}{-4cm}{-4cm}
+	\begin{center}
 	\includegraphics[width=\linewidth]{images/diagramme_de_gantt.png}
-	\caption{Diagramme de gantt}
-	\label{fig:Diagramme_de_gantt}
-\end{figure}
+    \end{center}
+\end{changemargin}
+%\caption{Diagramme de gantt}
+%\label{fig:Diagramme_de_gantt}
 
 \newpage
 
@@ -241,7 +280,8 @@ Celui-ci sera installé sur les 12 commutateurs Cisco utilisés pour le réseau 
 Une machine virtuelle installée sur un serveur et équipée d'un logiciel adapté s'occupera de recuillir et traiter les données envoyées par les commutateurs.
 
 \paragraph{Sprint 2}
-Durant ce second sprint, nous avons mis en application notre système de monitoring réseau au sein de la Nantarena. Nous devons maintenant analyser les résultats que nous avons obtenu pour obtenir une idée du dimenssionnement du réseau que nous devrons conçevoir. Nous avons aussi effectué des mesures électriques sur les différentes lignes que nous utilisons (grâce à du matériel prêté par le département ETN) pour alimenter les ordinateurs des joueurs ainsi que notre propre matériel, dans le but de savoir si nous sommes à la limite de ce que peut supporter notre installation électrique ou si nous pourrions potentiellement ajouter des ordinateurs, et donc, des joueurs.
+Durant ce second sprint, nous avons mis en application notre système de monitoring réseau au sein de la Nantarena 13.3 les 16 et 17 Novembre 2013. Nous devons maintenant analyser les résultats que nous avons obtenus pour obtenir une idée du dimenssionnement du réseau que nous devrons conçevoir. Nous avons aussi effectué des mesures électriques sur les différentes lignes que nous utilisons (grâce à du matériel généreusement prêté par le département ETN) pour alimenter les ordinateurs des joueurs ainsi que notre propre matériel, dans le but de savoir si nous sommes à la limite de ce que peut supporter notre installation électrique ou si nous pourrions potentiellement ajouter des ordinateurs, et donc, des joueurs.
+Nous avons ainsi pu voir que sur la plupart des lignes électriques 16A utilisées par les joueurs, nous sommes largement en dessous de la capacité maximale et seulement à 50\% de celle-ci pour les joueurs ayant les ordinateurs les plus puissants (ceux qui consomment le plus).
 Nous continuons a enricihir notre bibliographie grâce aux ouvrages que nous avons empruntés à la Bibliothèque Universitaire.
 
 \paragraph{Sprint 3}
@@ -267,6 +307,8 @@ A ce stade, il ne reste que des détails/bugs mineurs à corriger.
 \paragraph{Sprint 8}
 Durant ce dernier sprint, nous souhaiterions rédiger tous les documents nécessaires et préparer au mieux notre soutenance de PTrans.
 Ce sprint conclut l'UE "PTrans" du point de vue scolaire, mais notre projet continue jusqu'au jour de l'évènement et au-delà.
+
+%%%%%%%%%% ANALYSE DES RISQUES %%%%%%%%%%
 
 \section{Analyse des risques}
 
@@ -303,7 +345,8 @@ Afin de montrer l'impact du risque sur le projet, une série de symboles a été
 Pour certains aléas, il est impossible de prévoir à l'avance les conséquences de ceux-ci, et donc impossible de prévoir une correction. Aucune action préventive et/ou curative n'est donc renseignée pour ceux-ci.
 
 \newpage
-\begin{tabularx}{\linewidth}{|X||p{0,7cm}||p{1cm}|p{0,7cm}|p{0,7cm}||X|X|}
+\begin{adjustbox}{center}
+\begin{tabularx}{17cm}{|X||p{0,7cm}||p{1cm}|p{0,7cm}|p{0,7cm}||X|X|}
 	\hline
 		Aléas & \% risque & \multicolumn{3}{l||}{Gravité} & \multicolumn{2}{l|}{Actions à prévoir} \\
 	\hline
@@ -333,15 +376,7 @@ Pour certains aléas, il est impossible de prévoir à l'avance les conséquence
     \hline
 		Catastrophe naturelle ou attentat & 0,1\% & + & & & Prévoir plan d'évacuation & Evacuer les visiteurs\\
 	\hline
-\end{tabularx}
-\newpage
-\begin{tabularx}{\linewidth}{|X||p{0,7cm}||p{1cm}|p{0,7cm}|p{0,7cm}||X|X|}
-	\hline
-		Aléas & \% risque & \multicolumn{3}{l||}{Gravité} & \multicolumn{2}{l|}{Actions à prévoir} \\
-	\hline
-		 & & Qualité & Coût & Délai & Prévenir & Curatif \\
-	\hline
-	\hline
+    \hline
 		\multicolumn{7}{|l|}{Technique}\\
 	\hline
 	\hline
@@ -354,8 +389,11 @@ Pour certains aléas, il est impossible de prévoir à l'avance les conséquence
 		Lags pendant le tournoi & 20\% & ++ & & ++ & Tester et optimiser au maximum le réseau & Trouver la source et la résoudre au plus vite \\
 	\hline
 \end{tabularx}
+\end{adjustbox}
 
 \newpage
+
+%%%%%%%%%% PARTIE HES %%%%%%%%%%
 
 \section{Partie HES}
 
@@ -366,12 +404,14 @@ Elle inclut :
 \item La recherche de financement par différent biais (sponsors, crowdfunding, ...).
 \item La communication autour de l'évènement : publicité (réalisation d'affiches, réseaux sociaux)
 \item La recherche et la réservation d'une salle Nantaise.
-\item 
 \end{itemize}
 
 \subsection{Problématique organisationnelle}
 
 Un des principaux défis de l'organisation d'un salon du jeu vidéo est bien son organisation en elle même : location de la salle et de matériel, recherche de sponsors et de partenaires pour le financement, publicité et marketing ...
+L'organisation d'un tel évènement va nécessiter de monter et gérer une équipe et un staff possédant des qualifications et des horizons très différents (communication, son, lumière, sécurité ...), une équipe qu'il faudra diriger dans son travail, dans laquelle il faudra nommer des responsables et motiver tout au long du processus, ou bien encore potentiellement régler des différents comme dans toute structure qui dépasse quelques personnes.
+L'organisation nécessite un planning précis et une liste des tâches claires, avec une assignation et une répartition intelligente des tâches en fonction des compétences et des talents de chacun.
+Nous devons de plus en parallèle nous consacrer à l'étude de la structure et de l'infrastructure réseau la plus propice à l'extension d'un tournoi de jeu en réseau type Nantarena à un grand nombre de joueurs simultanés pour la partie informatique de notre PTrans.
 
 \subsection{Problématique commerciale}
 
@@ -380,6 +420,37 @@ Une des facettes de la problématique du projet est bien entendu sa réussite co
 \subsection{Problématique environnementale}
 
 Le projet d'un salon du jeu vidéo va automatiquement générer une problématique environnementale. En effet, rassembler un grand nombre de personnes dans un même lieu génère des déchets qu'il faut éliminer de façon responsable. De plus, la partie tournoi du projet requiert l'utilisation de nombreux ordinateurs puissants pour le jeu ainsi que d'équipements (serveurs, commutateurs ...) qui sont très énergivores. Une des parades à cette consommation est le Green IT (ou informatique verte) dont le but est de réduire les nuisances et les empreintes écologiques, économiques et sociales de l'informatique par le biais d'utilisation d'équipement certifiés économiques en énergie et des pratiques de développement logiciel tournées vers l'environnement (réduction de la consommation CPU ...).
+
+%%%%%%%%%% PARTIE INFORMATIQUE %%%%%%%%%%
+
+\newpage
+
+\section{Partie informatique}
+
+Cette section regroupe tous les aspects génie logiciel de notre PTrans.
+
+\subsection{Mesures réseau Nantarena 13.3}
+
+Durant la Nantarena, nous avons pu mettre en place notre protocole de monitoring de la charge du réseau que nous avons développé au cours du sprint 2.
+
+\newpage
+
+\subsection{Mesures électriques Nantarena 13.3}
+
+Durant la Nantarena 13.3, nous avons pu effectuer des mesures électriques grâce à des puissance-mètre à effet Hall généreusement prêtés par le département ETN. \newline \newline
+Nous avons tout d'abord cherché à savoir comment mesurer la puissance qui était consommée par les joueurs et par nous-même (les organisateurs) pour savoir si le réseau électrique mis en place à chaque Nantarena était à la limite de ses capacités ou bien s'il nous était possible d'ajouter encore des joueurs. Nous n'avions en effet jusqu'ici qu'une vague idée de notre consommation et cette connaissance était purement théorique, basée sur des calculs avec une estimation de la puissance consommée par les ordinateurs des joueurs.Grâce à ces mesures, nous avons maintenant des informations sur la consommation réelle des ordinateurs des joueurs. \newline \newline
+Au début, nous pensions acheter des Watt-mètre mais nous avons ensuite pensé que le département ETN avait surement du matériel pour l'électronique de puissance capable de réaliser ces mesures.
+Après avoir discuté et expliqué le réseau électrique de la Nantarena avec Yann Mahé, professeur au département ETN et un de ses collègues, nous avons convenu que la meilleure solution à notre problèmpe de mesure électriques était un Watt-mètre à effet Hall, dont le département ETN possède deux exemplaires de type MH200 dont les capacités sont largement supérieures à nos mesures. En effet, pouvoir effectuer des mesures à pleine charge et en temps réel était indispensable pour nous, mais la contrainte majeure était de ne pas avoir à débrancher les joueurs en pleine partie pour pouvoir intercaler notre appareil de mesure entre la prise et leur rallonge. \newline \newline
+Ces capteurs permettent de mesurer le courant qui passe à travers un câble électrique sans contact, grâce à un anneau  parcouru par un champ magnétique qui enserre le câble. La perturbation plus ou moins grande du champ magnétique de l'anneau par le courant passant dans le câble permet à l'appareil de calculer ce dernier.
+Nous avons pu tester la précision de cet appareil grâce au projecteur d'un membre du Club Rézo qui connaissait sa consommation exacte, et nous avons obtenue une mesurer d'ampérage précise a +- 100mA (erreur que nous avons considéré comme négligeable au vu des ampérages considérés sur notre réseau). 
+\newpage
+Ces mesures nous ont aussi donné une idée de la consommation moyenne des ordinateurs qui sont utilisés par les joueurs lors d'évènements comme celui que nous voulons organiser. En effet, ces ordinateurs étant des ordinateurs pour joueurs, ils disposent de composants (en particulier le processeur et la carte graphique) plus puissants que dans l'ordinateur de monsieur tout-le-monde, et par conséquent, plus consommateurs d'électricité. \newline \newline
+Nous avons ainsi pu déterminer que la consommation maximale sur une de nos lignes 220V / 16A (le voltage et l'ampérage d'une prise classique) était de 8.2 ampères, soit 51.25\% de notre capacité électrique. Cette ligne était composée d'ordinateurs de type tour ATX, avec des accessoires esthétiques comme des néons (ainsi qu'une guirlande de Noël pour l'un d'entre eux). La consommation minimale relevée sur nos lignes était de 4.2 ampères, soit 26\% de la capacité électrique de la ligne. Celle-ci était uniquement exploitée par des ordinateurs portables, moins gourmands en énergie que les tours de jeu. La consommation moyenne relevée est de 6A par ligne, soit 37.5\% de la capacité d'une ligne 16A. \newline \newline
+Nous utilisons 2 lignes 16A par groupe de 20 joueurs, soit 1 ligne 16A pour 10 joueurs, ce qui laisse 1.6A par joueur en moyenne. Sachant que la consommation relevée des ordinateurs portables de quelques membres du Club était d'environ 100mA-150mA à pleine charge et de 250-300mA pour les tours, il reste une marge très confortable pour brancher les autres périphériques tels que les écrans. \newline \newline
+En conclusion, le réseau électrique de la Nantarena est loin de ses capacités maximales et il n'y a donc théoriquement aucun risque que le réseau disjoncte. Une des lignes a disjoncté a cause d'un joueur ayant branché une bouilloire défectueuse, élément à prendre en compte pour l'organisation de notre évènement (accès facile au panneau électrique pour pouvoir aisément rétablir le courant sur une ligne).
+Pour notre évènement, nous pensons donc rester sur ce modèle maintenant éprouvé (et prouvé) d'une ligne 16A pour 10 joueurs qui permet d'avoir une marge confortable en termes de puissance tout en n'ayant pas un réseau électrique surdimenssionné par rapport à notre utilisation.
+
+%%%%%%%%%% BIBLIOGRAPHIE %%%%%%%%%%
 
 \newpage
 
@@ -404,7 +475,7 @@ La gigue (jitter) définit la variabilité du délai de transit des paquets dans
 La gigue est différente du délai de transit en raison de son caractère variable. Le phénomène de gigue peut avoir de multiples origines (câble réseau défectueux, mauvaise configuration d'un équipement ...) mais est toujours néfaste en raison des retards induits et doit être évité au maximum.
 
 \begin{figure}[h]
-%	\includegraphics[width=\linewidth]{images/gigue.png}
+	\includegraphics[width=\linewidth]{images/gigue.png}
 	\caption{Gigue ou "Jittering"}
 	\label{fig:gigue_jittering}
 \end{figure} 
@@ -420,7 +491,7 @@ Il s'agit du temps nécessaire à une unité de données d'une taille définie (
 Ce temps de transit est inhérent aux technologies utilisées pour transporter l'information. Celle-ci transite dans les câbles en cuivre sous forme électrique, et il faut ensuite ajouter à ce temps de trajet le temps de traitement par les équipements. Il y a donc toujours un temps entre l'envoi d'une information et sa réception, ce qui crée des contraintes sur les systèmes qui doivent fonctionner en "temps réel" et où la latence doit être la plus faible possible.
 
 \begin{figure}[h]
-%	\includegraphics[width=\linewidth]{images/delai_de_transit.png}
+	\includegraphics[width=\linewidth]{images/delai_de_transit.png}
 	\caption{Délai de transit}
 	\label{fig:delai_de_transit}
 \end{figure} 
@@ -438,6 +509,8 @@ Ainsi, il est possible d'avoir un réseau sur lequel transite un débit ridicule
 
 \paragraph{Relation complexité-coût}
 
+Relation entre la complexité et le coût d'un réseau :
+
 \begin{figure}[h]
 %	\includegraphics[width=\linewidth]{images/relation_complexite_cout.png}
 	\caption{Relation Complexité-Coût}
@@ -454,9 +527,9 @@ Ainsi, il est possible d'avoir un réseau sur lequel transite un débit ridicule
 
 \paragraph{Principe de la file d'attente}
 
-Lorsqu'un système de peut plus gérer les demandes qui lui sont adressées, par exemple lorsqu'elles sont trop nombreuses pour ses capacités de traitement, il est parfois mis en place un système de file d'attente pour palier au problème.
+Lorsqu'un système ne peut plus gérer les demandes qui lui sont adressées, par exemple lorsqu'elles sont trop nombreuses pour ses capacités de traitement, il est parfois mis en place un système de file d'attente pour palier au problème.
 Les demandes sont traitées dans leur ordre d'arrivée, le plus de demandes possibles sont traitées simultanément tandis que les demandes qui ne peuvent être gérées dans l'instant sont placées dans une file d'attente. On peut faire l'analogie avec une caisse de supermarché : la caissière (le serveur) traite les courses (la requête) du client qui est en face d'elle et les autres attendent que la caissière puissent traiter leur requête, dans leur ordre d'arrivée.
-Dans le cas normal d'utilisation, au fur et à mesure que les requêtes sont traitées, la file d'attente se vide progressivement pour revenir à un fonctionnement normal, où le nombre de requêtes est inférieur aux capacités de traitement simultanées du système (toutes les requêtes sont traitées simultanément).s
+Dans le cas normal d'utilisation, au fur et à mesure que les requêtes sont traitées, la file d'attente se vide progressivement pour revenir à un fonctionnement normal, où le nombre de requêtes est inférieur aux capacités de traitement simultanées du système (toutes les requêtes sont traitées simultanément).
 Un autre problème survient lorsque la file d'attente se remplit plus vite qu'elle ne se vide et qu'elle n'est plus extensible, différentes stratégies peuvent alors être mises en place pour parer au problème de dépassement de la taille de la file d'attente.
 
 \begin{figure}[h]
@@ -471,6 +544,8 @@ Un autre problème survient lorsque la file d'attente se remplit plus vite qu'el
 
 La loi de Poisson permet de modéliser des phénomènes aléatoires mettant en jeu un grand nombre de sources qui sont indépendantes les unes des autres.
 La probabilité qu'un utilisateur se connecte à un serveur peut-être modélisée de façon très satisfaisante par une loi de Poisson. En effet, on ne commence à gérer les connexions que quand celles-ci sont simultanément nombreuses et que ce nombre peut nuire au fonctionnement du serveur (grand nombre de sources). Ces mêmes sources sont de plus indépendantes les unes des autres : la connexion d'un utilisateur n'a pas de lien avec la connexion d'un autre utilisateur ou sa déconnexion (a moins, par exemple, qu'ils se connaissent et aient décidé de se connecter en même temps, mais ce genre de cas est négligeable comparé à toutes les autres connexions sans lien les unes avec les autres).
+
+\paragraph{Stratégie Token Bucket}
 
 %[Figure Priem page 48]
 %[Formule du taux de charge du serveur page 48]
@@ -579,6 +654,8 @@ La probabilité qu'un utilisateur se connecte à un serveur peut-être modélis�
 \item \url{http://www.afjv.com/news/2889_paris-games-week-2013-xbox-one-et-ps4-en-avant-premiere.htm}
 \end{itemize}
 
+%%%%%%%%%% ANNEXES %%%%%%%%%%
+
 \newpage
 \section{Annexes}
 
@@ -595,5 +672,15 @@ La probabilité qu'un utilisateur se connecte à un serveur peut-être modélis�
 	\caption{En-têtes IPv4 et IPv6}
 	\label{fig:En-têtes IPv4 et IPv6}
 \end{figure} 
+
+\begin{comment}
+\section {Remerciements}
+
+\begin{itemize}
+\item Yann Mahé, professeur au département ETN, pour nous avoir aidé à trouver une solution de mesures électriques pour la Nantarena 13.3 et nous avoir prêté les deux watt-mètre à effet Hall.
+\item David Tollec, étudiant en INFO3, pour avoir réalisé la planche électrique qui a permis les mesures électriques lors de la Nantarena 13.3.
+\end{itemize}
+
+\end{comment}
 
 \end{document}
